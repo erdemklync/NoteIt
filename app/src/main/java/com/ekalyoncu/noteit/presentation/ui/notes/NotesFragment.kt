@@ -10,14 +10,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekalyoncu.noteit.R
 import com.ekalyoncu.noteit.databinding.FragmentNotesBinding
 import com.ekalyoncu.noteit.domain.model.Note
 import com.ekalyoncu.noteit.presentation.adapter.NoteAdapter
 import com.ekalyoncu.noteit.presentation.listener.NoteListener
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class NotesFragment: Fragment(R.layout.fragment_notes) {
 
     private val viewModel: NotesViewModel by viewModels()
@@ -48,6 +51,17 @@ class NotesFragment: Fragment(R.layout.fragment_notes) {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        with(binding){
+            noteRecyclerView.apply {
+                adapter = noteAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            }
+        }
     }
 
     override fun onDestroyView() {

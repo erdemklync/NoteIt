@@ -2,9 +2,11 @@ package com.ekalyoncu.noteit.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ekalyoncu.noteit.R
 import com.ekalyoncu.noteit.databinding.ItemNoteBinding
 import com.ekalyoncu.noteit.domain.model.Note
 import com.ekalyoncu.noteit.presentation.listener.NoteListener
@@ -32,6 +34,7 @@ class NoteAdapter(
 
         fun bind(note: Note){
             with(binding){
+                noteCard.setCardBackgroundColor(ContextCompat.getColor(root.context, note.getColorValue()))
                 noteTitle.text = note.title
                 noteText.text = note.text
             }

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetNotes @Inject constructor(
-    private val noteRepository: NoteRepository,
+    private val noteRepository: NoteRepository
 ){
     operator fun invoke(): Flow<List<Note>> {
         return noteRepository.getNotes()
