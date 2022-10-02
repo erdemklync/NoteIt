@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">NoteIt</string>
     <string name="app_title">noteit</string>
+    <string name="title_input_layout_hint">Not Başlığı</string>
+    <string name="text_input_layout_hint">Not</string>
+
+    <string name="title_add">Not ekle</string>
+    <string name="title_edit">Notu düzenle</string>
+    <string name="save">Kaydet</string>
 </resources>
