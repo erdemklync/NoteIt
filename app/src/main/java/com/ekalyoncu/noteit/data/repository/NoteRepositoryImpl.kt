@@ -32,8 +32,8 @@ class NoteRepositoryImpl(
     )
 
     override fun getNotes(): Flow<List<Note>> {
-        //return noteDao.getNotes()
-        return flow { emit(fakeData) }
+        return noteDao.getNotes()
+        //return flow { emit(fakeData) }
     }
 
     override suspend fun insertNote(note: Note) {

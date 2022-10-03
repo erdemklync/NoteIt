@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ekalyoncu.noteit.R
 import com.ekalyoncu.noteit.databinding.FragmentNotesBinding
@@ -24,21 +25,22 @@ import kotlinx.coroutines.launch
 class NotesFragment: Fragment(R.layout.fragment_notes) {
 
     private val viewModel: NotesViewModel by viewModels()
+
+    private var _binding: FragmentNotesBinding? = null
+    private val binding get() = _binding!!
+
     private val noteAdapter: NoteAdapter = NoteAdapter(
         object : NoteListener{
             override fun onLongClick(note: Note): Boolean {
-                //TODO("Not yet implemented")
+                navigateToAddEditScreen(note)
                 return true
             }
         }
     )
 
-    private var _binding: FragmentNotesBinding? = null
-    private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
 
@@ -53,13 +55,20 @@ class NotesFragment: Fragment(R.layout.fragment_notes) {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ){
         super.onViewCreated(view, savedInstanceState)
 
         with(binding){
             noteRecyclerView.apply {
                 adapter = noteAdapter
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            }
+
+            floatingActionButton.setOnClickListener {
+                navigateToAddEditScreen()
             }
         }
     }
@@ -69,4 +78,8 @@ class NotesFragment: Fragment(R.layout.fragment_notes) {
         _binding = null
     }
 
+    private fun navigateToAddEditScreen(note: Note? = null){
+        val action = NotesFragmentDirections.actionNotesFragmentToAddEditFragment()
+        findNavController().navigate(action)
+    }
 }

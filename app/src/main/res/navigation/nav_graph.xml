@@ -16,5 +16,11 @@
     <fragment
         android:id="@+id/addEditFragment"
         android:name="com.ekalyoncu.noteit.presentation.ui.add_edit.AddEditFragment"
-        android:label="AddEditFragment" />
+        android:label="AddEditFragment" >
+        <argument
+            android:name="note"
+            app:argType="com.ekalyoncu.noteit.domain.model.Note"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

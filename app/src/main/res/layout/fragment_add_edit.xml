@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@id/add_edit_toolbar">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tite_edit_text"
+            android:id="@+id/title_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
