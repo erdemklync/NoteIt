@@ -79,7 +79,7 @@ class NotesFragment: Fragment(R.layout.fragment_notes) {
     }
 
     private fun navigateToAddEditScreen(note: Note? = null){
-        val action = NotesFragmentDirections.actionNotesFragmentToAddEditFragment()
+        val action = NotesFragmentDirections.actionNotesFragmentToAddEditFragment(note)
         findNavController().navigate(action)
     }
 }

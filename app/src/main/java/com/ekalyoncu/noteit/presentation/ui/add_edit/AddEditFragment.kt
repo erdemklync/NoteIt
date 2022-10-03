@@ -29,7 +29,12 @@ class AddEditFragment: Fragment(R.layout.fragment_add_edit){
         _binding = FragmentAddEditBinding.inflate(inflater, container, false)
 
         with(binding){
-            //addEditToolbar.inflateMenu(R.menu.menu_add_edit)
+
+            viewModel.state.value.note.let { note ->
+                titleEditText.setText(note.title)
+                textEditText.setText(note.text)
+            }
+
             addEditToolbar.setOnMenuItemClickListener { item ->
                 if(item.itemId == R.id.save){
                     viewModel.insertEntry()
