@@ -3,7 +3,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="purple">#ffd7f4</color>
-    <color name="green">#d0ffa3</color>
-    <color name="red">#ffdbcf</color>
+    <color name="redContainer">#ffdad6</color>
+    <color name="blueContainer">#d1e4ff</color>
+    <color name="greenContainer">#71ff74</color>
+    <color name="purpleContainer">#efdbff</color>
+
+    <color name="redOnContainer">#410003</color>
+    <color name="blueOnContainer">#001d35</color>
+    <color name="greenOnContainer">#002203</color>
+    <color name="purpleOnContainer">#2b0052</color>
+
 </resources>

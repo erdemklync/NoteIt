@@ -2,6 +2,7 @@ package com.ekalyoncu.noteit.presentation.ui.notes
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ekalyoncu.noteit.domain.model.Note
 import com.ekalyoncu.noteit.domain.use_case.NoteUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,4 +34,13 @@ class NotesViewModel @Inject constructor(
             }
         }
     }
+
+    fun insertNote(note: Note) = viewModelScope.launch {
+        noteUseCases.insertNote(note)
+    }
+
+    fun deleteNote(note: Note) = viewModelScope.launch {
+        noteUseCases.deleteNote(note)
+    }
+
 }

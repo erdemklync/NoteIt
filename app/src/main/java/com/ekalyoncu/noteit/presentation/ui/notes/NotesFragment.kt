@@ -1,13 +1,13 @@
 package com.ekalyoncu.noteit.presentation.ui.notes
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -16,7 +16,12 @@ import com.ekalyoncu.noteit.R
 import com.ekalyoncu.noteit.databinding.FragmentNotesBinding
 import com.ekalyoncu.noteit.domain.model.Note
 import com.ekalyoncu.noteit.presentation.adapter.NoteAdapter
-import com.ekalyoncu.noteit.presentation.listener.NoteListener
+import com.ekalyoncu.noteit.presentation.listener.NoteDeleteListener
+import com.ekalyoncu.noteit.presentation.listener.NoteOnClickListener
+import com.ekalyoncu.noteit.util.DELETED_NOTE_KEY
+import com.ekalyoncu.noteit.util.NOTE_DELETE_REQUEST_KEY
+import com.ekalyoncu.noteit.util.parcelable
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,13 +35,24 @@ class NotesFragment: Fragment(R.layout.fragment_notes) {
     private val binding get() = _binding!!
 
     private val noteAdapter: NoteAdapter = NoteAdapter(
-        object : NoteListener{
+        object : NoteOnClickListener{
             override fun onLongClick(note: Note): Boolean {
                 navigateToAddEditScreen(note)
                 return true
             }
         }
     )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setFragmentResultListener(NOTE_DELETE_REQUEST_KEY){ _, bundle ->
+            val deletedNote = bundle.parcelable<Note>(DELETED_NOTE_KEY)
+            deletedNote?.let { note ->
+                showNoteDeletedSnackbar(note)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,5 +97,25 @@ class NotesFragment: Fragment(R.layout.fragment_notes) {
     private fun navigateToAddEditScreen(note: Note? = null){
         val action = NotesFragmentDirections.actionNotesFragmentToAddEditFragment(note)
         findNavController().navigate(action)
+    }
+
+    private fun showNoteDeletedSnackbar(note: Note){
+        viewModel.deleteNote(note)
+
+        val snackbar = Snackbar.make(binding.root, "${note.title} başlıklı not silindi", Snackbar.LENGTH_LONG)
+        snackbar.setAction(
+            "Geri al",
+            object : NoteDeleteListener {
+                override fun onClick(view: View?) {
+                    undoDeletion(note)
+                }
+            }
+        )
+        snackbar.anchorView = requireView().findViewById(R.id.floating_action_button)
+        snackbar.show()
+    }
+
+    fun undoDeletion(note: Note){
+        viewModel.insertNote(note)
     }
 }

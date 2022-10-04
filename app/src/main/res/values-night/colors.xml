@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="redContainer">#93000e</color>
+    <color name="blueContainer">#00497c</color>
+    <color name="greenContainer">#005311</color>
+    <color name="purpleContainer">#6600b7</color>
+
+    <color name="redOnContainer">#F41524</color>
+    <color name="blueOnContainer">#d1e4ff</color>
+    <color name="greenOnContainer">#71ff74</color>
+    <color name="purpleOnContainer">#efdbff</color>
+</resources>

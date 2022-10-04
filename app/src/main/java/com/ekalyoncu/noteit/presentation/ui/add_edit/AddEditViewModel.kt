@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ekalyoncu.noteit.domain.model.Note
 import com.ekalyoncu.noteit.domain.use_case.NoteUseCases
-import com.ekalyoncu.noteit.presentation.ui.notes.NotesDataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,16 +25,16 @@ class AddEditViewModel @Inject constructor(
         savedStateHandle.get<Note>("note")?.let { note ->
             _state.update {
                 it.copy(
+                    editMode = true,
                     note = note
                 )
             }
         }
     }
 
-    fun insertEntry() = viewModelScope.launch {
+    fun insertNote() = viewModelScope.launch {
         noteUseCases.insertNote(state.value.note)
     }
-
     fun setTitle(title: String){
         _state.update {
             it.copy(
@@ -56,4 +55,13 @@ class AddEditViewModel @Inject constructor(
         }
     }
 
+    fun setColor(color: Int){
+        _state.update {
+            it.copy(
+                note = it.note.copy(
+                    color = color
+                )
+            )
+        }
+    }
 }
