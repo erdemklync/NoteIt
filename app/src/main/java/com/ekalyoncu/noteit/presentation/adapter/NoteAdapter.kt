@@ -1,6 +1,7 @@
 package com.ekalyoncu.noteit.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -39,6 +40,10 @@ class NoteAdapter(
 
                 noteTitle.text = note.title
                 noteText.text = note.text
+
+                if (noteTitle.text.isBlank()){
+                    noteTitle.visibility = View.GONE
+                }
             }
         }
     }

@@ -3,8 +3,10 @@ package com.ekalyoncu.noteit.presentation.ui.add_edit
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ekalyoncu.noteit.R
 import com.ekalyoncu.noteit.domain.model.Note
 import com.ekalyoncu.noteit.domain.use_case.NoteUseCases
+import com.ekalyoncu.noteit.util.NOTE_ARGS_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,12 +23,14 @@ class AddEditViewModel @Inject constructor(
     private var _state = MutableStateFlow(AddEditDataState())
     val state = _state.asStateFlow()
 
+    val toolbarTitle: Int = if(state.value.editMode) R.string.title_edit else R.string.title_add
+
     init {
-        savedStateHandle.get<Note>("note")?.let { note ->
+        savedStateHandle.get<Note>(NOTE_ARGS_ID)?.let { note ->
             _state.update {
                 it.copy(
                     editMode = true,
-                    note = note
+                    note = note,
                 )
             }
         }

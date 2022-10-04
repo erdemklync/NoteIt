@@ -31,7 +31,6 @@ class AddEditFragment: Fragment(R.layout.fragment_add_edit){
 
     private val arguments: AddEditFragmentArgs by navArgs()
 
-
     private var _binding: FragmentAddEditBinding? = null
     private val binding get() = _binding!!
 
@@ -50,6 +49,13 @@ class AddEditFragment: Fragment(R.layout.fragment_add_edit){
         }
 
         with(binding){
+            addEditToolbar.title = getString(viewModel.toolbarTitle)
+
+            addEditToolbar.setNavigationIcon(R.drawable.ic_back)
+            addEditToolbar.setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
+
             addEditToolbar.setOnMenuItemClickListener { item ->
                 if(item.itemId == R.id.save){
                     viewModel.insertNote()
