@@ -9,9 +9,9 @@
         <br />
         <a href="#try">Try NoteIt</a>
         ·
-        <a href="https://github.com/erdemklync/WeatherApp/issues">Report Bug</a>
+        <a href="https://github.com/erdemklync/NoteIt/issues">Report Bug</a>
         ·
-        <a href="https://github.com/erdemklync/WeatherApp/issues">Request Feature</a>
+        <a href="https://github.com/erdemklync/NoteIt/issues">Request Feature</a>
     </p>
 </div>
 
