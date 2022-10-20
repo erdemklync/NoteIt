@@ -21,9 +21,10 @@ class AddEditViewModel @Inject constructor(
 ): ViewModel(){
 
     private var _state = MutableStateFlow(AddEditDataState())
-    val state = _state.asStateFlow()
+    val state get() = _state.asStateFlow()
 
-    val toolbarTitle: Int = if(state.value.editMode) R.string.title_edit else R.string.title_add
+    val toolbarTitle: Int
+        get() = if(state.value.editMode) R.string.title_edit else R.string.title_add
 
     init {
         savedStateHandle.get<Note>(NOTE_ARGS_ID)?.let { note ->
@@ -39,6 +40,7 @@ class AddEditViewModel @Inject constructor(
     fun insertNote() = viewModelScope.launch {
         noteUseCases.insertNote(state.value.note)
     }
+
     fun setTitle(title: String){
         _state.update {
             it.copy(

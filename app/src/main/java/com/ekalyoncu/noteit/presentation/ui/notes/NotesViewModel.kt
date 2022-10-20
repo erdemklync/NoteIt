@@ -18,7 +18,7 @@ class NotesViewModel @Inject constructor(
 ): ViewModel(){
 
     private var _state = MutableStateFlow(NotesDataState())
-    val state = _state.asStateFlow()
+    val state get() = _state.asStateFlow()
 
     init {
         getNotes()
